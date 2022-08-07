@@ -1,0 +1,23 @@
+{
+  "infile": "",
+  "firstRelease": false,
+  "noVerify": true,
+  "silent": false,
+  "tagPrefix": "",
+  "skip": {"commit": true, "tag": true},
+  "scripts": {"postchangelog": "bin/cleanupChangelog.js"},
+  "types": [
+    {"type": "feat", "section": "WIP"},
+    {"type": "fix", "section": "WIP"},
+    {"type": "chore", "hidden": true},
+    {"type": "docs", "hidden": true},
+    {"type": "style", "hidden": true},
+    {"type": "refactor", "hidden": true},
+    {"type": "perf", "hidden": true},
+    {"type": "test", "hidden": true}
+  ],
+  "bumpFiles": [ {"filename": "", "updater": "versionupdate.js"} ],
+  "packageFiles": [ {"filename": "", "updater": "versionupdate.js"} ],
+  "commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}",
+  "compareUrlFormat": "From tag '{{previousTag}}' to current"
+}
