@@ -82,6 +82,12 @@ changelog-creator -r <release_type>
 
 You will get version `1.1.0` rather than what would be the auto-generated version `1.0.1`.
 
+### CLI Help
+
+```
+changelog-creator -h
+```
+
 ## Known bugs
 
 - If the release version changes while working, the changelog cleanup process will not cleanup the previous section.
