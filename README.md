@@ -34,23 +34,19 @@ To guarantee the correct behavior of the tool, when ready to push to production 
 
 ## Installing `unity-changelog-creator`
 
-Download the folder and place it inside a Unity project.
+Download the folder place it inside your Unity project.
 
-Run `npm install` inside the folder to setup all the dependencies and run `npm link` to setup the command line tool.
+Move into the folder inside the terminal, run `npm install` followed by `npm link`.
 
 ### Configure `unity-changelog-creator`
 
-The tool requires a destination for the changelog and the path to the ProjectSettings file. Both path can be either absolute or relative.
+The tool requires a directory for the changelog and the path to the ProjectSettings file. Both path can be either absolute or relative.
 
-Configure the ProjectSettings path:
+To configure the tool, run
 ```
-changelog-creator -p <valid_path>
+changelog-creator-configure
 ```
-
-Set the path you want the CHANGELOG.md file to be created at:
-```
-changelog-creator -c <valid_path>
-```
+in the folder that you want to use as main directory. Following the directions, three configurations file will be created in the current folder.
 
 ## CLI usage
 
@@ -96,6 +92,5 @@ You will get version `1.1.0` rather than what would be the auto-generated versio
 
 ## Next Steps
 
-Push the package to npm and let it be completely configurable inside npm configs
-
-Let the commit path be configurable
+Push the package to npm
+Complete the configuration script with more options
