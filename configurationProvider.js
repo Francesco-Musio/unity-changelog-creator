@@ -1,10 +1,12 @@
 const options = require('./lib/cliOptionsProvider');
+const getTargetBaseConfigurationPath = require('./lib/configurationPathProvider');
+const fs   = require('fs');
 
 let _configuration = null;
 module.exports.Configuration = () => {
 	if (_configuration) return _configuration;
 	
-	const baseConfig = require(getTargetBaseConfigurationPath(this.Platform));
+	const baseConfig = JSON.parse(fs.readFileSync(getTargetBaseConfigurationPath(this.Platform), 'utf-8'));
 
 	const additionalOptions = {};
 	additionalOptions["releaseAs"] = options.releaseAs;

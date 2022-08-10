@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {logError, logAction} = require('../bin/logger');
+const {logError, logAction} = require('../logger');
 
 /* istanbul ignore if */
 if (process.version.match(/v(\d+)\./)[1] < 6) {
