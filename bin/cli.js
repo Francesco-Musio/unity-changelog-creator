@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {logError, logAction} = require('../logger');
+const {logError, logAction} = require('../bin/logger');
 
 /* istanbul ignore if */
 if (process.version.match(/v(\d+)\./)[1] < 6) {
@@ -9,18 +9,6 @@ if (process.version.match(/v(\d+)\./)[1] < 6) {
 	)
 } else {
 	const config = require('../configurationProvider');
-
-	if (config.NewPSPath) {
-		config.ConfigureProjectSettingsPath(config.NewPSPath);
-		logAction("changelog-creator: Configured new ProjectSettings path.");
-		process.exit(0);
-	} 
-	
-	if (config.NewChangelogPath) {
-		config.ConfigureChangelogPath(config.NewChangelogPath);
-		logAction("changelog-creator: Configured new Changelog path.");
-		process.exit(0);
-	} 
 
 	if (!config.HasPSPath) {
 		logError("changelog-creator: No projectSettings path has been set. Run -p to set your Project Settings path");

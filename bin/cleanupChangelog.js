@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const config = require('../configurationProvider');
-const {logAction, logError} = require('./logger');
+const {logAction, logError} = require('../bin/logger');
 const index = require('../index');
 
 index.ClenupChangelog(config.Configuration()).catch(err => {
