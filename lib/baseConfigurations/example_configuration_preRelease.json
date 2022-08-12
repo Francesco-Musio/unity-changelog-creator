@@ -19,6 +19,6 @@
   ],
   "bumpFiles": [ {"filename": "", "updater": "versionupdate.js"} ],
   "packageFiles": [ {"filename": "", "updater": "versionupdate.js"} ],
-  "commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}",
+  "commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commits/{{hash}}",
   "compareUrlFormat": "From tag '{{previousTag}}' to current"
 }
