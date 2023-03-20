@@ -1,0 +1,160 @@
+{
+    "root": true,
+    "plugins": ["@typescript-eslint/eslint-plugin", "prettier", "@nrwl/nx", "lodash"],
+    "parser": "@typescript-eslint/parser",
+    "extends": ["prettier"],
+    "env": {
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "impliedStrict": true
+        }
+    },
+    "rules": {
+        "prettier/prettier": "error"
+    },
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+            "extends": ["plugin:lodash/recommended", "eslint:recommended"],
+            "rules": {
+                "no-restricted-imports": [
+                    "error",
+                    {
+                        "patterns": [
+                            {
+                                "group": ["option-t/esm/*", "option-t/lib/*"],
+                                "message": "Import from option-t/cjs/*"
+                            }
+                        ],
+                        "paths": [
+                            {
+                                "name": "assert",
+                                "message": "Please import assert from ts-essentials"
+                            },
+                            {
+                                "name": "console",
+                                "importNames": ["assert"],
+                                "message": "Please import assert from ts-essentials"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["*.ts", "*.tsx"],
+            "extends": [
+                "plugin:@nrwl/nx/typescript",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@typescript-eslint/recommended-requiring-type-checking"
+            ],
+            "rules": {
+                "array-callback-return": "warn",
+                "no-constant-binary-expression": "warn",
+                "no-constructor-return": "error",
+                "no-self-compare": "warn",
+                "no-template-curly-in-string": "warn",
+                "no-unmodified-loop-condition": "error",
+                "no-unreachable-loop": "warn",
+                "no-unused-private-class-members": "error",
+                "curly": ["error", "all"],
+                "default-case-last": "error",
+                "eqeqeq": "error",
+                "func-names": ["error", "never"],
+                "no-confusing-arrow": "warn",
+                "no-eval": "error",
+                "no-extra-bind": "warn",
+                "no-floating-decimal": "error",
+                "no-implicit-coercion": "error",
+                "no-implicit-globals": "error",
+                "no-lonely-if": "error",
+                "no-negated-condition": "error",
+                "no-nested-ternary": "error",
+                "no-new": "warn",
+                "no-new-wrappers": "error",
+                "no-param-reassign": [
+                    "error",
+                    {
+                        "props": true
+                    }
+                ],
+                "no-return-assign": "error",
+                "no-throw-literal": "error",
+                "no-unneeded-ternary": "error",
+                "no-unused-expressions": "warn",
+                "no-useless-computed-key": "error",
+                "no-useless-concat": "error",
+                "no-useless-rename": "error",
+                "no-var": "error",
+                "prefer-const": "error",
+                "prefer-rest-params": "error",
+                "prefer-spread": "error",
+                "prefer-template": "error",
+                "@typescript-eslint/consistent-type-assertions": [
+                    "error",
+                    {
+                        "assertionStyle": "as",
+                        "objectLiteralTypeAssertions": "allow-as-parameter"
+                    }
+                ],
+                "@typescript-eslint/explicit-module-boundary-types": [
+                    "error",
+                    {
+                        "allowHigherOrderFunctions": true
+                    }
+                ],
+                "@typescript-eslint/prefer-function-type": "error",
+                "@typescript-eslint/prefer-reduce-type-parameter": "error",
+                "@typescript-eslint/switch-exhaustiveness-check": "warn",
+                "@typescript-eslint/unified-signatures": "error",
+                "default-param-last": "off",
+                "@typescript-eslint/default-param-last": "warn",
+                "dot-notation": "off",
+                "@typescript-eslint/dot-notation": "warn",
+                "no-duplicate-imports": "off",
+                "@typescript-eslint/no-duplicate-imports": "error",
+                "no-loop-func": "off",
+                "@typescript-eslint/no-loop-func": "error",
+                "no-useless-constructor": "off",
+                "@typescript-eslint/no-useless-constructor": "error",
+                "lodash/callback-binding": "off",
+                "lodash/chain-style": "off",
+                "lodash/chaining": "off",
+                "lodash/import-scope": ["warn", "member"],
+                "lodash/matches-prop-shorthand": "off",
+                "lodash/matches-shorthand": "off",
+                "lodash/path-style": "off",
+                "lodash/prefer-constant": "off",
+                "lodash/prefer-invoke-map": "off",
+                "lodash/prefer-lodash-chain": "off",
+                "lodash/prefer-noop": "off",
+                "lodash/prefer-over-quantifier": "off",
+                "lodash/prefer-reject": "off",
+                "lodash/prop-shorthand": "off"
+            }
+        },
+        {
+            "files": ["*.js", "*.jsx"],
+            "extends": ["plugin:@nrwl/nx/javascript"],
+            "rules": {}
+        },
+        {
+            "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+            "env": {
+                "jest": true
+            },
+            "rules": {
+                "@typescript-eslint/no-unsafe-assignment": "off",
+                "@typescript-eslint/no-unsafe-argument": "off",
+                "@typescript-eslint/no-unsafe-call": "off",
+                "@typescript-eslint/no-unsafe-member-access": "off",
+                "@typescript-eslint/no-unsafe-return": "off",
+                "@typescript-eslint/no-non-null-assertion": "off"
+            }
+        }
+    ]
+}
