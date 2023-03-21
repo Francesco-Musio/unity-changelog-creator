@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/Francesco-Musio/unity-changelog-creator/compare/v1.1.1...v2.0.0) (2023-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* convert project to typescript
+
+### Features
+
+* convert project to typescript ([62e281f](https://github.com/Francesco-Musio/unity-changelog-creator/commit/62e281ff065a6f54b2c40f612caf1b2ab0b48057))
+
 ## [1.1.1](https://github.com/Francesco-Musio/unity-changelog-creator/compare/v1.1.0...v1.1.1) (2023-02-02)
 
 ### Bug Fixes
