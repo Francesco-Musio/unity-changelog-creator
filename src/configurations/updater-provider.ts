@@ -4,6 +4,13 @@ const regexVersion = /(?:bundleVersion: )(?:[0-9]+[.]?)+/;
 const regexBundleVersionCode = /(?:AndroidBundleVersionCode: )[0-9]+/;
 const regexIPhoneBuildVersion = /(?<=buildNumber:\n[ ]+Standalone:[ ]+[0-9]+\n[ ]+)iPhone:[ ]+[0-9]+/;
 
+/**
+ * Builds the functions that are used to read the current version
+ * and write the new version.
+ * These functions are provided to and used by the standard-version package.
+ * @param env current environment.
+ * @returns object with readVersion and writeVersion functions.
+ */
 export function updaterProvider(env: Environment): Updater {
     return {
         readVersion(contents: string) {

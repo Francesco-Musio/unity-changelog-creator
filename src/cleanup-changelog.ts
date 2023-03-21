@@ -5,6 +5,16 @@ import { logAction } from "./logger";
 const sectionDelimitersRegex = /(?=## \[[0-9]\.[0-9]+\.[0-9]+\])/;
 const versionRegex = /## \[[0-9]\.[0-9]+\.[0-9]+\]/;
 
+/**
+ * Cleanup the changelog.
+ * The standard-version package that is used internally doesn't support the
+ * override of a changelog section that already exists, so generating the changelog
+ * multiple times would result in multiple entries for the same version.
+ * This fixes the issue by making sure that only the most recent section amongs
+ * those for the same version remains.
+ *
+ * @param path path to the changelog file.
+ */
 export default async function cleanupChangelog(path: string) {
     logAction("Cleaning changelog...");
 

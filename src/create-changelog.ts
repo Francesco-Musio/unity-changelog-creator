@@ -5,7 +5,11 @@ import inquirer from "inquirer";
 import getConfigurationForEnvironment from "./configurations/get-config-for-env";
 import { logAction, logError } from "./logger";
 
+/**
+ * Generate the changelog.
+ */
 export default async function createChangelog() {
+    // ask environment
     const ans: { env: Environment } = await inquirer.prompt([
         {
             type: "list",
@@ -15,6 +19,7 @@ export default async function createChangelog() {
         }
     ]);
 
+    // recover configuration for environment
     logAction("Fetching configuration for environment " + ans.env);
     let config: EnvironmentConfiguration;
     try {
@@ -42,9 +47,10 @@ export default async function createChangelog() {
         }
     };
 
+    // execute bump and changelog steps, if requested
     await standardVersion(preConfig);
-
     await cleanupChangelog(config.infile);
 
+    // execute commit and tag steps
     await standardVersion(postConfig);
 }

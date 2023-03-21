@@ -1,6 +1,9 @@
 import { Configuration, LocalConfiguration } from "../types";
 import { updaterProvider } from "./updater-provider";
 
+/**
+ * Base configuration.
+ */
 export const baseConfig: Configuration = {
     develop: {
         firstRelease: false,
@@ -103,6 +106,10 @@ export const baseConfig: Configuration = {
     }
 };
 
+/**
+ * Configuration template.
+ * This will be saved to the user's disk.
+ */
 export const localConfig: LocalConfiguration = {
     develop: {
         infile: "./CHANGELOG.md",

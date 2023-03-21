@@ -4,6 +4,11 @@ import { baseConfig } from "./configs";
 import getFilePath from "./get-file-path";
 import { updaterProvider } from "./updater-provider";
 
+/**
+ * Provide the configuration to use for the changelog generation.
+ * @param env current envitonment.
+ * @returns configuration.
+ */
 export default async function getConfigurationForEnvironment(env: Environment): Promise<EnvironmentConfiguration> {
     const base = baseConfig[env];
 
