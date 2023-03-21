@@ -1,10 +1,13 @@
 import { readFile, writeFile } from "fs/promises";
 import { compact, drop, forEach, keyBy, map, slice, split, take } from "lodash";
+import { logAction } from "./logger";
 
 const sectionDelimitersRegex = /(?=## \[[0-9]\.[0-9]+\.[0-9]+\])/;
 const versionRegex = /## \[[0-9]\.[0-9]+\.[0-9]+\]/;
 
 export default async function cleanupChangelog(path: string) {
+    logAction("Cleaning changelog...");
+
     var data = await readFile(path, "utf-8");
     const sections = data.split(sectionDelimitersRegex);
     const sectionByVersion = sections.map((x) => versionRegex.exec(x));

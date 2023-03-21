@@ -1,5 +1,6 @@
 import inquirer from "inquirer";
 import generateLocalConfiguration from "./configurations/generate-local-config";
+import { logAction } from "./logger";
 
 export default async function configureChangelog(): Promise<void> {
     const ans: { path: string } = await inquirer.prompt([
@@ -9,5 +10,6 @@ export default async function configureChangelog(): Promise<void> {
         }
     ]);
 
+    logAction("Generating local configuration...");
     await generateLocalConfiguration(ans.path);
 }

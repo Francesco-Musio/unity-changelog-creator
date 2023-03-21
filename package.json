@@ -39,9 +39,9 @@
     "dependencies": {
         "@types/inquirer": "^9.0.3",
         "@types/yargs": "^17.0.22",
+        "chalk": "^5.2.0",
         "commit-and-tag-version": "^11.2.0",
         "fs": "^0.0.1-security",
-        "inquirer": "^9.1.5",
-        "yargs": "^17.7.1"
+        "inquirer": "^9.1.5"
     }
 }

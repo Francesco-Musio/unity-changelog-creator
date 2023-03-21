@@ -3,6 +3,7 @@ import standardVersion from "commit-and-tag-version";
 import cleanupChangelog from "./cleanup-changelog";
 import inquirer from "inquirer";
 import getConfigurationForEnvironment from "./configurations/get-config-for-env";
+import { logAction, logError } from "./logger";
 
 export default async function createChangelog() {
     const ans: { env: Environment } = await inquirer.prompt([
@@ -14,11 +15,12 @@ export default async function createChangelog() {
         }
     ]);
 
+    logAction("Fetching configuration for environment " + ans.env);
     let config: EnvironmentConfiguration;
     try {
         config = await getConfigurationForEnvironment(ans.env);
     } catch (error) {
-        console.log("No local configuration found for environement: " + ans.env);
+        logError("No local configuration found for environement: " + ans.env);
         process.exit(0);
     }
 
