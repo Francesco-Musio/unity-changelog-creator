@@ -2,19 +2,34 @@
     "name": "unity-changelog-creator",
     "version": "2.0.0",
     "description": "Changelog Creator designed for Unity",
-    "main": "index.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "author": "Francesco Musio",
     "license": "ISC",
     "type": "module",
     "scripts": {
         "build": "rm -rf dist && rollup -c ./rollup.config.mjs",
         "format": "prettier --write \"src/**/*.ts\"",
-        "lint": "eslint",
-        "changelog-creator": "./dist/index.js"
+        "lint": "eslint"
     },
     "bin": {
         "changelog-creator": "./dist/index.js"
     },
+    "repository": "Francesco-Musio/unity-changelog-creator ",
+    "bugs": {
+        "url": "https://github.com/Francesco-Musio/unity-changelog-creator/issues"
+    },
+    "homepage": "https://github.com/Francesco-Musio/unity-changelog-creator#readme",
+    "keywords": [
+        "conventional-changelog",
+        "commit-and-tag-version",
+        "recommended",
+        "changelog",
+        "automatic",
+        "workflow",
+        "version",
+        "unity"
+    ],
     "devDependencies": {
         "@babel/core": "^7.21.3",
         "@babel/plugin-external-helpers": "^7.18.6",
