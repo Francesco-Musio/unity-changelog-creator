@@ -10,7 +10,7 @@ const extensions = [".mjs", ".js", ".ts", ".json", ".d.ts"];
 
 export default defineConfig({
     input: "./src/index.ts",
-    external: ["inquirer", "yargs", "commit-and-tag-version"],
+    external: ["inquirer", "chalk", "commit-and-tag-version", "fs"],
     plugins: [
         // Allows node_modules resolution
         resolve({ extensions }),
