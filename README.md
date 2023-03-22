@@ -20,91 +20,95 @@ The changelog creation can be run as many times as needed. The changelog will `a
 
 ### Generation steps
 
--   `Work in progress:` only generates the changelog. It will then write a new section for the release displaying the version that the commits are going to generate.
+-   `Work in progress:` only generates the changelog. It will then write a new section or updating the existing one for the release displaying the version that the commits are going to generate.
 -   `Pre release:` bump the versions, generates the changelog and commit everything with the commit message `chore(release): <new_version>`
 -   `Release:` update the changelog making sure that every change goes under the right section
 
 ## Requirements
 
-1. Follow the [Conventional Commits Specification](https://conventionalcommits.org) in your repository.
-2. Follow the [Successfull Git Branching Model](https://nvie.com/posts/a-successful-git-branching-model/)
+Follow the [Conventional Commits Specification](https://conventionalcommits.org) in your repository.
 
-To guarantee the correct behavior of the tool, when ready to push to production a new release or hotfix it's necessary to:
+It's important that the commit with the latest tag is reachable from every branch in the project in which the changelog needs to be generated. To guarantee the correct behavior of the tool, when ready to push to production a new release or hotfix it's necessary to:
 
 -   after merging in master, create the changelog and tag that commit as the release
 -   after publishing the release, instead of merging the release branch in develop, the master branch should be merged instead
 
 ## Installing `unity-changelog-creator`
 
-Download the folder place it inside your Unity project.
+1. Create a project.json in the root of the unity project.
+2. Mark the tool as a dependency with a path to the cloned repository.
+3. Navigate to the cloned repo and run `npm run build`
+4. In the project's root, run `npm install`
 
-Move into the folder inside the terminal, run `npm install` followed by `npm link`.
-
-### Configure `unity-changelog-creator`
-
-The tool requires a directory for the changelog and the path to the ProjectSettings file. Both path can be either absolute or relative.
-
-To configure the tool, run
-
-```
-changelog-creator-configure
-```
-
-in the folder that you want to use as main directory. Following the directions, three configurations file will be created in the current folder.
+> Soon the project will be published as an npm package, making the installation easier to perform.
 
 ## CLI usage
 
-### Run generation step
+Run `npx unity-changelog-creator` to start using the tool.
 
-Generation steps names are `develop`, `pre-release` and `release`. Any of this can be run like this:
+### Configure the tool
 
+A configuration step needs to be performed before the tool can operate correctly.
+
+To configurate the tool, run `npx unity-changelog-creator` and select `configure changelog creator`. It will ask for the absolute path to the project's ProjectSettings.asset file: this is so the tool can correctly bump the project's version.
+
+A new file `changelog-creator.config.json` will be created containing the configuration for each environment.
+
+```typescript
+{
+    {
+        // path to the Changelog file.
+        infile: "./CHANGELOG.md",
+        // prefix of the project's version tags.
+        // e.g. tagPrefix = "hello" -> tag will be formatted like "helloX.Y.Z"
+        tagPrefix: "",
+        // how to display every type of commit.
+        // if "section" is the same, all commit of that type are displayed in the same section.
+        types: [
+            { type: "feat", section: "To release" },
+            { type: "fix", section: "To release" },
+            { type: "chore", hidden: true },
+            { type: "docs", hidden: true },
+            { type: "style", hidden: true },
+            { type: "refactor", hidden: true },
+            { type: "perf", hidden: true },
+            { type: "test", hidden: true }
+        ],
+        // text that will be displayed next to the version.
+        compareUrlFormat: "From tag '{{previousTag}}' to current",
+        // path to the ProjectSettings.asset file. Will be correctly
+        // filled with the value provided during the configuration process.
+        pathToProjectSettings: "path-to-project-settings"
+    }
+}
 ```
-changelog-creator -t <step_name>
-```
 
-### Skip lyfecycle step during execution
+### Run changelog generation
 
-To skip any step of the generation process run `-s` followed by one or more steps:
+To start the generation, run `npx unity-changelog-creator` and select `create changelog`.
 
--   bump
--   changelog
--   commit
+There will be 3 options to choose from:
 
-This could cause issues if used improperly, but it's useful for example to run multiple `pre-release` without having to bump the version every time like this:
-
-```
-changelog-creator -t pre-release -s bump
-```
+-   `develop:` will generate the changelog displaying the version as it will be after the bump. No version bump will actually occur.
+-   `prerelease:` will bump the version accordingly to [`semver`](https://semver.org/) standards and update the changelog. After this, it will commit every change present with the name `chore(release): <new_version>`.
+-   `release:` will just generate the changelog without the version bump.
 
 ### Specify release type imperatively
 
-To bypass the automated version bump use `-r` with the argument `major`, `minor` or `patch`.
-
-Suppose the last version of your code is `1.0.0`, you've only landed `fix:` commits, but
-you would like your next release to be a `minor`. Simply run the following:
-
-```
-changelog-creator -r <release_type>
-```
-
-You will get version `1.1.0` rather than what would be the auto-generated version `1.0.1`.
+> Coming Soon
 
 ### CLI Help
 
-```
-changelog-creator -h
-```
+> Coming Soon
 
 ## Known bugs
 
 -   If the release version changes while working, the changelog cleanup process will not cleanup the previous section.
 
-    -   example: if I'm working on 7.1.5 and one change push the version to 7.2.0, the changelog will still contain the 7.1.5 instead of deleting it.
-
--   If the release is done with the `releaseAs` command, the changelog will delete the former version's section.
-    -   example: if I'm working on 7.1.5 and want to release as minor, the changelog will still contain the 7.1.5 instead of deleting it.
+    -   example: if I'm working on 7.1.5 and one commit change push the version to 7.2.0, the changelog will still contain the 7.1.5 instead of deleting it.
 
 ## Next Steps
 
 Push the package to npm
-Complete the configuration script with more options
+Implement help commands
+Implement the releasAs option
