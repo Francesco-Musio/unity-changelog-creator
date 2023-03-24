@@ -35,12 +35,7 @@ It's important that the commit with the latest tag is reachable from every branc
 
 ## Installing `unity-changelog-creator`
 
-1. Create a project.json in the root of the unity project.
-2. Mark the tool as a dependency with a path to the cloned repository.
-3. Navigate to the cloned repo and run `npm run build`
-4. In the project's root, run `npm install`
-
-> Soon the project will be published as an npm package, making the installation easier to perform.
+> `npm i --save-dev unity-changelog-creator`
 
 ## CLI usage
 
