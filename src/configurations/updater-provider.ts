@@ -1,3 +1,4 @@
+import { logError } from "../logger";
 import { Environment, Updater } from "../types";
 
 const regexVersion = /(?:bundleVersion: )(?:[0-9]+[.]?)+/;
@@ -17,7 +18,8 @@ export function updaterProvider(env: Environment): Updater {
         readVersion(contents: string) {
             const matches = regexVersion.exec(contents);
             if (!matches) {
-                throw "No version found whild reading";
+                logError("No version found whild reading");
+                throw Error;
             }
 
             const versionFound = matches[0].replace("bundleVersion: ", "");
@@ -26,16 +28,19 @@ export function updaterProvider(env: Environment): Updater {
         writeVersion(contents: string, version: string) {
             const androidMatches = regexBundleVersionCode.exec(contents);
             if (!androidMatches) {
-                throw "No android version found";
+                logError("No android version found");
+                throw Error;
             }
             const androidVersion = androidMatches[0].replace("AndroidBundleVersionCode: ", "");
             const iOSSection = regexIPhoneVersionSection.exec(contents);
             if (!iOSSection || iOSSection.length <= 0) {
-                throw "No ios version found";
+                logError("No ios version found");
+                throw Error;
             }
             const iOSMatches = regexIPhoneBuildVersion.exec(iOSSection[0]);
             if (!iOSMatches) {
-                throw "No ios version found";
+                logError("No ios version found");
+                throw Error;
             }
             const iOSVersion = iOSMatches[0].replace("iPhone: ", "");
 
