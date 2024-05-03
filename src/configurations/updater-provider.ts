@@ -2,7 +2,8 @@ import { Environment, Updater } from "../types";
 
 const regexVersion = /(?:bundleVersion: )(?:[0-9]+[.]?)+/;
 const regexBundleVersionCode = /(?:AndroidBundleVersionCode: )[0-9]+/;
-const regexIPhoneBuildVersion = /(?<=buildNumber:\n[ ]+Standalone:[ ]+[0-9]+\n[ ]+)iPhone:[ ]+[0-9]+/;
+const regexIPhoneVersionSection = /(?<=buildNumber:\n)(    \w+: \d+(\n)?)+/;
+const regexIPhoneBuildVersion = /iPhone: \d+/;
 
 /**
  * Builds the functions that are used to read the current version
@@ -28,9 +29,13 @@ export function updaterProvider(env: Environment): Updater {
                 throw "No android version found";
             }
             const androidVersion = androidMatches[0].replace("AndroidBundleVersionCode: ", "");
-            const iOSMatches = regexIPhoneBuildVersion.exec(contents);
+            const iOSSection = regexIPhoneVersionSection.exec(contents);
+            if (!iOSSection || iOSSection.length <= 0) {
+                throw "No ios version found";
+            }
+            const iOSMatches = regexIPhoneBuildVersion.exec(iOSSection[0]);
             if (!iOSMatches) {
-                throw "No iso version found";
+                throw "No ios version found";
             }
             const iOSVersion = iOSMatches[0].replace("iPhone: ", "");
 
@@ -52,7 +57,10 @@ export function updaterProvider(env: Environment): Updater {
             if (parseInt(iOSVersion) > 0) {
                 const messageC = isDev ? "Expected iPhoneBuildVersion reset from: " : "Reset iPhoneBuildVersion from: ";
                 console.log(messageC + iOSVersion);
-                if (!isDev) contents = contents.replace(regexIPhoneBuildVersion, "iPhone: 0");
+                if (!isDev) {
+                    const baseContent = iOSSection[0].replace(regexIPhoneBuildVersion, "iPhone: 0");
+                    contents = contents.replace(regexIPhoneVersionSection, baseContent);
+                }
             }
 
             return contents;
